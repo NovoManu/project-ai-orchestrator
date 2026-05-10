@@ -37,11 +37,22 @@ git init
 
 **3. Add submodules**
 
+Option A — **GitHub Copilot CLI** (what `make execute-skill-*` runs): install the `copilot` command, then:
+
 ```bash
 make execute-skill-scaffold-submodule
-# OR manually:
-# git submodule add https://github.com/your-org/your-service service-name
 ```
+
+Install: [GitHub Copilot CLI](https://docs.github.com/copilot/how-tos/use-cli/install-copilot-cli) (e.g. `brew install copilot-cli` or `npm install -g @github/copilot`). You need a Copilot subscription for the CLI.
+
+Option B — **Git only** (no Copilot):
+
+```bash
+git submodule add https://github.com/your-org/your-service service-name
+git submodule update --init service-name
+```
+
+Then follow [`.github/skills/scaffold-submodule/SKILL.md`](.github/skills/scaffold-submodule/SKILL.md) to add `docs/` and update `doc-refs.yaml` by hand (or ask an AI agent in Cursor to execute that skill).
 
 **4. Commit and push to your new remote**
 

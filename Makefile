@@ -2,7 +2,7 @@
 # PHONY TARGETS
 # ==============================================================================
 .PHONY: add clean-tmp init-submodules switch-to-master pull-all update-submodules \
-	generate-doc-diffs reset-all \
+	generate-doc-diffs reset-all check-copilot \
 	execute-skill-scaffold-submodule \
 	execute-skill-update-documentation \
 	execute-skill-review-and-update-documentation \
@@ -66,45 +66,71 @@ reset-all:
 	fi
 
 # ==============================================================================
+# AI AGENT SKILLS (GitHub Copilot CLI)
+# ==============================================================================
+# make execute-skill-* runs `copilot -i "..."`. Install: brew install copilot-cli
+# or npm install -g @github/copilot — see README. Override: make COPILOT=/path/to/copilot …
+COPILOT ?= copilot
+
+# Fail fast with install hints when `copilot` is missing (Error 127)
+check-copilot:
+	@command -v $(COPILOT) >/dev/null 2>&1 || { \
+		printf '%s\n' \
+			"error: $(COPILOT) (GitHub Copilot CLI) not found." \
+			"" \
+			"Install (pick one):" \
+			"  brew install copilot-cli" \
+			"  npm install -g @github/copilot" \
+			"  curl -fsSL https://gh.io/copilot-install | bash" \
+			"" \
+			"Docs: https://docs.github.com/copilot/how-tos/use-cli/install-copilot-cli" \
+			"" \
+			"Without the CLI, use plain Git and the skill checklist:" \
+			"  git submodule add <repo-url> <folder>" \
+			"  See .github/skills/scaffold-submodule/SKILL.md" >&2; \
+		exit 127; \
+	}
+
+# ==============================================================================
 # AI AGENT SKILLS - SUBMODULE SCAFFOLDING
 # ==============================================================================
 
 # Add a new GitHub repo as a submodule and generate its documentation
-execute-skill-scaffold-submodule:
-	copilot -i "Execute the scaffold-submodule skill"
+execute-skill-scaffold-submodule: check-copilot
+	$(COPILOT) -i "Execute the scaffold-submodule skill"
 
 # ==============================================================================
 # AI AGENT SKILLS - DOCUMENTATION
 # ==============================================================================
 
 # Execute the update-documentation skill via Copilot CLI
-execute-skill-update-documentation:
-	copilot -i "Execute the update-documentation skill"
+execute-skill-update-documentation: check-copilot
+	$(COPILOT) -i "Execute the update-documentation skill"
 
 # Execute the review-and-update-documentation skill via Copilot CLI
-execute-skill-review-and-update-documentation:
-	copilot -i "Execute the review-and-update-documentation skill"
+execute-skill-review-and-update-documentation: check-copilot
+	$(COPILOT) -i "Execute the review-and-update-documentation skill"
 
 # ==============================================================================
 # AI AGENT SKILLS - DEVELOPMENT
 # ==============================================================================
 
 # Execute the create-skill skill via Copilot CLI
-execute-skill-create-skill:
-	copilot -i "Execute the create-skill skill"
+execute-skill-create-skill: check-copilot
+	$(COPILOT) -i "Execute the create-skill skill"
 
 # Execute the investigate-codebase skill via Copilot CLI
-execute-skill-investigate-codebase:
-	copilot -i "Execute the investigate-codebase skill"
+execute-skill-investigate-codebase: check-copilot
+	$(COPILOT) -i "Execute the investigate-codebase skill"
 
 # Execute the code-review skill via Copilot CLI
-execute-skill-code-review:
-	copilot -i "Execute the code-review skill"
+execute-skill-code-review: check-copilot
+	$(COPILOT) -i "Execute the code-review skill"
 
 # Execute the implement-feature skill via Copilot CLI
-execute-skill-implement-feature:
-	copilot -i "Execute the implement-feature skill"
+execute-skill-implement-feature: check-copilot
+	$(COPILOT) -i "Execute the implement-feature skill"
 
 # Execute the generate-pr-description skill via Copilot CLI
-execute-skill-generate-pr-description:
-	copilot -i "Execute the generate-pr-description skill"
+execute-skill-generate-pr-description: check-copilot
+	$(COPILOT) -i "Execute the generate-pr-description skill"
