@@ -1,0 +1,19 @@
+# Documentation commit references
+#
+# Maps each submodule to the Git commit hash that was used when the
+# root-level docs/ were last reviewed and updated for that service.
+#
+# This file is intentionally decoupled from the Git submodule pointers
+# in .gitmodules. Submodule pointers track the code version; these refs
+# track the documentation baseline.
+#
+# Update after reviewing and updating docs for a service:
+#   make generate-doc-diffs   # fetches origin/master, diffs, and advances the baseline
+#
+# AIDEV-NOTE: used by tools/generate_diffs.sh as the OLD_SHA baseline
+# instead of the committed submodule pointer, so doc updates and
+# submodule pointer updates are fully independent operations.
+
+# Add entries below as submodules are scaffolded, e.g.:
+# service-a: <commit-sha>
+# service-b: <commit-sha>
