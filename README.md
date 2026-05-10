@@ -1,32 +1,63 @@
-# Orchestrator Template
+# Project AI Orchestrator
 
-A meta-repository template for coordinating multiple independently versioned services via Git submodules.
+A meta-repository for coordinating multiple independently versioned services via Git submodules.
+
+**Repository:** [github.com/NovoManu/project-ai-orchestrator](https://github.com/NovoManu/project-ai-orchestrator)
 
 ## What This Is
 
-This template gives you a **coordinator repo** — a parent that holds submodule pointers, cross-repo documentation, AI agent skills, and shared tooling, without containing any application code itself.
+This repo is a **coordinator** — a parent that holds submodule pointers, cross-repo documentation, AI agent skills, and shared tooling, without containing application code itself.
 
-Copy this projec and use it as the starting point for any project where you need to orchestrate multiple repositories.
+Use it as the starting point when you need to orchestrate multiple repositories.
 
 ## Quick Start
 
+Use this repo as a **scaffold**: copy the tree, drop its Git history, add your services as submodules, and push to **your** Git host (you are not continuing the upstream repo).
+
+**1. Clone this project**
+
 ```bash
-# 1. Copy this template to your new project
-cp -r orchestrator-orchestrator/ my-project
+git clone git@github.com:NovoManu/project-ai-orchestrator.git my-project
 cd my-project
+```
 
-# 2. Initialize git
+HTTPS:
+
+```bash
+git clone https://github.com/NovoManu/project-ai-orchestrator.git my-project
+cd my-project
+```
+
+**2. Remove Git history and start a new repository**
+
+```bash
+rm -rf .git
 git init
-git commit -m "chore: initial orchestrator scaffold"
+```
 
-# 3. Add your first submodule (via the scaffold-submodule skill, or manually)
+**3. Add submodules**
+
+```bash
 make execute-skill-scaffold-submodule
 # OR manually:
 # git submodule add https://github.com/your-org/your-service service-name
-
-# 4. Update AGENTS.md with project-specific context
-# 5. Edit docs/docs.md to describe your system
 ```
+
+**4. Commit and push to your new remote**
+
+Create an empty repository on your host (for example GitHub), then:
+
+```bash
+git add .
+git commit -m "chore: initial orchestrator project"
+git branch -M main
+git remote add origin git@github.com:your-org/your-orchestrator.git
+git push -u origin main
+```
+
+Replace `git@github.com:your-org/your-orchestrator.git` with your repository URL (HTTPS works too).
+
+Then update **`AGENTS.md`** and **`docs/docs.md`** for your system.
 
 ## Project Layout
 
@@ -75,7 +106,7 @@ See [.github/skills/README.md](.github/skills/README.md) for the full list.
 
 ## Customization
 
-After copying the template:
+After cloning this repo (or using it as a template elsewhere):
 
 1. **`AGENTS.md`** — Replace placeholder sections with your project's domain, services, and team conventions.
 2. **`docs/docs.md`** — Replace the placeholder overview with your system description.
